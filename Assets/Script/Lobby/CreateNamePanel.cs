@@ -11,7 +11,9 @@ public class CreateNamePanel : LobbyPanelBase
     [SerializeField] private TMP_InputField nombre;
     [SerializeField] private TMP_InputField apellido;
     [SerializeField] private Button Siguiente;
+    int cont = 0;
     private const int MAX_CHARACTER_NICKNAME = 30;
+    
     // Start is called before the first frame update
     public override void InitPanel(LobbyUIManager uIManager)
     {
@@ -35,7 +37,11 @@ public class CreateNamePanel : LobbyPanelBase
             base.ClosePanel();
             lobbyUIManager.ShowPanel(LobbyPanelType.CREATEROOM);
             GlobalManagers.instance.networkController.SetPlayerNickname(nickname);
-            
+            GlobalManagers.instance.networkController.SetBalance("100");
+            GlobalManagers.instance.networkController.SetConta(cont.ToString());
+            GlobalManagers.instance.networkController.Setnombre(nombre.text);
+            cont++;
+
         }
     }
 

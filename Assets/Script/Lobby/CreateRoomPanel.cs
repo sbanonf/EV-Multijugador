@@ -23,7 +23,7 @@ public class CreateRoomPanel : LobbyPanelBase
 
         base.InitPanel(UIManager);
         networkcontroller = GlobalManagers.instance.networkController;
-        joinRoombtn.onClick.AddListener(() => CreateRoom(GameMode.Client, createRoomField.text));
+        joinRoombtn.onClick.AddListener(() => CreateRoom(GameMode.Client, joinRoomField.text));
         createRoombtn.onClick.AddListener(() => CreateRoom(GameMode.Host, createRoomField.text));
         randomRoombtn.onClick.AddListener(joinRandom);
 

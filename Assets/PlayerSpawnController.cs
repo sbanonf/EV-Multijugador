@@ -7,7 +7,7 @@ using UnityEngine;
 public class PlayerSpawnController : NetworkBehaviour, IPlayerJoined, IPlayerLeft
 {
     [SerializeField] private NetworkPrefabRef networkPrefabRef = NetworkPrefabRef.Empty;
-
+    [SerializeField] private Canvas canvas;
     public override void Spawned()
     {
         if (Runner.IsServer) {
@@ -20,7 +20,12 @@ public class PlayerSpawnController : NetworkBehaviour, IPlayerJoined, IPlayerLef
     private void SpawnPlayer(PlayerRef playerref) {
 
         if (Runner.IsServer) {
-            Runner.Spawn(networkPrefabRef, Vector3.zero, Quaternion.identity, playerref);
+            var texto  = Runner.Spawn(networkPrefabRef, transform.position, Quaternion.identity, playerref);
+            var original = GameObject.FindWithTag("CanvasPrincipal");
+            texto.transform.SetParent(original.transform);
+            var rectTransform = texto.GetComponent<RectTransform>();
+            rectTransform.SetAsLastSibling();
+            texto.gameObject.SetActive(Object.HasStateAuthority);
         }
     }
     public void PlayerJoined(PlayerRef player)

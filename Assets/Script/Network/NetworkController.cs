@@ -14,6 +14,11 @@ public class NetworkController : MonoBehaviour, INetworkRunnerCallbacks
     public event Action OnStartedRunnerConnection;
     public event Action OnplayerJoinedSuccesfully;
     public string localplayer { get; private set; }
+    public string localname { get; private set; }
+    public string ganancias { get; private set; }
+    public string localbalance { get; private set; }
+
+    public string conta { get; private set; }
     public async void StartGame(GameMode mode, string roomName) 
     {
         OnStartedRunnerConnection?.Invoke();
@@ -22,6 +27,7 @@ public class NetworkController : MonoBehaviour, INetworkRunnerCallbacks
         }
         networkRunnerinstance.AddCallbacks(this);
         networkRunnerinstance.ProvideInput = true;
+
         var startgameArgs = new StartGameArgs() {
             GameMode = mode,
             SessionName = roomName,
@@ -29,6 +35,7 @@ public class NetworkController : MonoBehaviour, INetworkRunnerCallbacks
             SceneManager = networkRunnerinstance.GetComponent<INetworkSceneManager>()
         };
         var result = await networkRunnerinstance.StartGame(startgameArgs);
+        
         if (result.Ok)
         {
             const string SCENE_NAME = "MainGame";
@@ -45,6 +52,21 @@ public class NetworkController : MonoBehaviour, INetworkRunnerCallbacks
 
     public void SetPlayerNickname(string nickname) {
         localplayer = nickname;
+    }
+    public void Setnombre(string name)
+    {
+        localname = name;
+    }
+    public void SetBalance(string balance)
+    {
+        localbalance = balance;
+    }
+    public void SetGanancia(string ganan)
+    {
+        ganancias = ganan;
+    }
+    public void SetConta(string c) {
+        conta=c;
     }
     public void OnConnectedToServer(NetworkRunner runner)
     {
