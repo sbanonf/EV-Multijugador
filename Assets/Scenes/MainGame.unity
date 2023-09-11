@@ -309,7 +309,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ca8e63a293b468b4ba5107718dc5fb8b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _interpolationDataSource: 0
+  _interpolationDataSource: 3
   networkPrefabRef:
     RawGuidValue: 0d74b88faafd46247be03cab70aaa6b5
   canvas: {fileID: 7208339064593934056}

@@ -19,7 +19,9 @@ public class PlayerInfo : NetworkBehaviour
             var playerName = GlobalManagers.instance.networkController.localplayer;
             var b = GlobalManagers.instance.networkController.localname;
             var c = GlobalManagers.instance.networkController.conta;
-            Debug.Log(playerName);
+            Debug.Log("a"+playerName);
+            Debug.Log("n"+b);
+            Debug.Log("c"+c);
             RpcSetNickName(playerName);
             RpcSetName(b);
             RpcSetConta(c);
@@ -28,18 +30,18 @@ public class PlayerInfo : NetworkBehaviour
     [Networked(OnChanged = nameof(OnContachange))] private NetworkString<_4> contador2 { get; set; }
     private static void OnContachange(Changed<PlayerInfo> changed)
     {
-        changed.Behaviour.SetPlayerNickname(changed.Behaviour.playerName);
+        changed.Behaviour.SetPlayerConta(changed.Behaviour.contador2);
     }
 
     [Rpc(sources: RpcSources.InputAuthority, RpcTargets.StateAuthority)]
     private void RpcSetConta(NetworkString<_4> conta)
     {
         contador2 = conta;
-        SetPlayerConta(playerName);
+        SetPlayerConta(contador2);
     }
-    private void SetPlayerConta(NetworkString<_16> nickname)
+    private void SetPlayerConta(NetworkString<_4> contador2)
     {
-        contador.text = "apostador " + contador2;
+        contador.text = "apostador: " + Object.InputAuthority.PlayerId;
     }
     [Networked(OnChanged = nameof(OnNicknamechange))] private NetworkString<_16> playerName { get; set; }
     private static void OnNicknamechange(Changed<PlayerInfo> changed)
